@@ -60,6 +60,7 @@ const COUNTRIES = [
 
 let currentZoom = 1.0;
 let activeField = null;
+let currentLang = localStorage.getItem("app_lang") || "tr";
 
 // DOM Yüklendiğinde başlat
 document.addEventListener("DOMContentLoaded", () => {
@@ -69,6 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
   setupInputListeners();
   setupDateMasks();
   setupAccordionToggle();
+  setupLanguageSwitcher();
+  setLanguage(currentLang);
   loadDemoData(); // Varsayılan olarak Torino ve HALUK YILMAZ ile başlar
   renderOverlay();
 
@@ -76,6 +79,65 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btn-clear").addEventListener("click", clearForm);
   document.getElementById("btn-download").addEventListener("click", downloadOfficialPdf);
 });
+
+// Dil Değiştirme Motoru (i18n)
+function setLanguage(lang) {
+  currentLang = lang;
+  try {
+    localStorage.setItem("app_lang", lang);
+  } catch (e) {}
+
+  document.documentElement.lang = lang;
+
+  const btnTr = document.getElementById("lang-btn-tr");
+  const btnEn = document.getElementById("lang-btn-en");
+  if (btnTr) btnTr.classList.toggle("active", lang === "tr");
+  if (btnEn) btnEn.classList.toggle("active", lang === "en");
+
+  const dict = window.TRANSLATIONS ? window.TRANSLATIONS[lang] : null;
+  if (!dict) return;
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+    if (dict[key] !== undefined) el.textContent = dict[key];
+  });
+
+  document.querySelectorAll("[data-i18n-html]").forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (dict[key] !== undefined) el.placeholder = dict[key];
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.dataset.i18nTitle;
+    if (dict[key] !== undefined) el.title = dict[key];
+  });
+
+  // Kılavuz ve Modül Başlıklarını Çevir
+  const h1 = document.querySelector("#page-card-guide-1 .page-card-header");
+  if (h1 && dict.card_header_guide_1) h1.textContent = dict.card_header_guide_1;
+
+  const h2 = document.querySelector("#page-card-guide-2 .page-card-header");
+  if (h2 && dict.card_header_guide_2) h2.textContent = dict.card_header_guide_2;
+
+  for (let p = 1; p <= 8; p++) {
+    const hp = document.querySelector(`#page-card-${p} .page-card-header`);
+    if (hp && dict.card_header_modulo) {
+      hp.textContent = dict.card_header_modulo.replace("{p}", p).replace("{doc}", p + 2);
+    }
+  }
+}
+
+function setupLanguageSwitcher() {
+  const btnTr = document.getElementById("lang-btn-tr");
+  const btnEn = document.getElementById("lang-btn-en");
+  if (btnTr) btnTr.addEventListener("click", () => setLanguage("tr"));
+  if (btnEn) btnEn.addEventListener("click", () => setLanguage("en"));
+}
 
 // 10 Sayfayı (2 Rehber + 8 Modül) Dikey Kesintisiz Olarak Ekle
 function buildAllPages() {
