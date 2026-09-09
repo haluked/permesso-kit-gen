@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+*.class
+*.pyc
+
+# Local temporary test files
+test_*.pdf
+sample_*.png
+
+# OS generated
+.DS_Store
+Thumbs.db

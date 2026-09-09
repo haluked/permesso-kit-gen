@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Öğrenciler için İtalyan Oturum İzni Form Doldurma Sistemi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="vendor/pdf-lib.min.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-left">
+      <div class="header-title-row">
+        <span class="header-badge">MOD. 209 - MODULO 1</span>
+        <h1>Öğrenciler için İtalyan Oturum İzni Form Doldurma Sistemi</h1>
+      </div>
+      <!-- İstemci taraflı gizlilik güvencesi -->
+      <div class="client-privacy-notice">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <span>Bu site tamamen istemci tarafında (cihazınızda) çalıştığı için hiçbir veriniz sunucuya gönderilmez veya kaydedilmez.</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="btn-demo" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        Örnek Veri Doldur
+      </button>
+      <button id="btn-clear" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+        Temizle
+      </button>
+      <button id="btn-download" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Resmi PDF İndir (10 Sayfa)
+      </button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <!-- Sol Panel: Form Asistanı -->
+    <aside class="assistant-pane">
+      <div class="form-scroll-body" id="form-scroll-body">
+        
+        <!-- BÖLÜM 1: Sezione 1 -->
+        <section class="form-section-card" id="sec-1">
+          <div class="section-title">
+            <span class="sec-badge">SEZIONE 1 • SAYFA 1</span>
+            <h3>Dati della Richiesta (Başvuru Bilgileri)</h3>
+          </div>
+          <p class="section-desc">Kişisel ikamet bilgileriniz ve talep ettiğiniz oturum izni türü.</p>
+
+          <div class="form-group">
+            <label>
+              Emniyet Müdürlüğü İli (Sigla Provincia)
+              <span class="info-tag" title="Başvuru yapacağınız ilin 2 harfli kodu (Örn: Milano için MI, Roma için RM, Trento için TN)">?</span>
+            </label>
+            <select id="inp_sigla_questura" class="form-control select-prov">
+              <option value="">İl Seçiniz...</option>
+            </select>
+            <span class="hint">Al Signor Questore di - Başvurulan Emniyet Makamı</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label>
+                3. Soyadı (Cognome)
+                <span class="info-tag" title="Pasaportunuzdaki soyadınızla birebir aynı olmalı. İtalyanca resmi evraklarda büyük harfle yazılır.">?</span>
+              </label>
+              <input type="text" id="inp_cognome" class="form-control uppercase" placeholder="Örn: YILMAZ" maxlength="56">
+            </div>
+            <div class="form-group col">
+              <label>
+                4. Adı (Nome)
+                <span class="info-tag" title="Pasaportunuzdaki adınız ve varsa ikinci adınız.">?</span>
+              </label>
+              <input type="text" id="inp_nome" class="form-control uppercase" placeholder="Örn: AHMET" maxlength="56">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-4">
+              <label>
+                5. İkamet İli (Provincia)
+                <span class="info-tag" title="İtalya'da ikamet ettiğiniz ilin 2 harfli kısaltması (Sigla).">?</span>
+              </label>
+              <select id="inp_provincia_domicilio" class="form-control select-prov">
+                <option value="">İl...</option>
+              </select>
+            </div>
+            <div class="form-group col-8">
+              <label>
+                6. İkamet Şehri/Belediyesi (Comune)
+                <span class="info-tag" title="İtalya'da yaşadığınız belediye (Comune) adı.">?</span>
+              </label>
+              <input type="text" id="inp_comune_domicilio" class="form-control uppercase" placeholder="Örn: MILANO" maxlength="28">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label>
+                7. Başvuru Amacı (Richiede il)
+                <span class="info-tag" title="İlk kez alıyorsanız Rilascio, süresi dolanı uzatıyorsanız Rinnovo seçin.">?</span>
+              </label>
+              <select id="inp_tipo_richiesta" class="form-control">
+                <option value="rilascio">8. İlk Başvuru / Çıkarma (Rilascio)</option>
+                <option value="rinnovo">9. Yenileme (Rinnovo)</option>
+                <option value="aggiornamento">10. Güncelleme (Aggiornamento)</option>
+                <option value="duplicato">11. Zayi / Kayıp (Duplicato)</option>
+                <option value="conversione">12. Dönüşüm (Conversione)</option>
+              </select>
+            </div>
+            <div class="form-group col">
+              <label>
+                13. Belge Türü (Del / Della)
+                <span class="info-tag" title="Süreli oturum izinleri için Permesso di Soggiorno, süresiz uzun dönem için Carta di Soggiorno seçilir.">?</span>
+              </label>
+              <select id="inp_del_della" class="form-control">
+                <option value="permesso">14. Süreli Oturum İzni (Permesso di Soggiorno)</option>
+                <option value="carta">15. Uzun Dönem Oturum Kartı (Carta di Soggiorno)</option>
+                <option value="foto">17. Fotoğraf Güncelleme (Aggiornamento Foto)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              16. Oturum İzni Türü Kodu (Codice Tipologia)
+              <span class="info-tag" title="İtalyan resmi Tabella 2 kodudur. Öğrenci için 24 (Studio), çalışma için 16 (Lavoro), aile için 13 (Famiglia) yazılır.">?</span>
+            </label>
+            <select id="inp_codice_tipologia" class="form-control">
+              <option value="24">24 - Öğrenci / Eğitim (Studio)</option>
+              <option value="16">16 - Çalışma / İş Sözleşmeli (Lavoro Subordinato)</option>
+              <option value="15">15 - Serbest Meslek / Şirket Sahibi (Lavoro Autonomo)</option>
+              <option value="13">13 - Aile Birleşimi (Famiglia)</option>
+              <option value="04">04 - Oturum İzni Güncelleme (Adres/Pasaport Değişimi)</option>
+              <option value="05">05 - İş Arama / Mezuniyet Sonrası (Attesa Occupazione)</option>
+              <option value="23">23 - Bilimsel Araştırma (Ricerca Scientifica)</option>
+              <option value="22">22 - Seçilmiş İkamet (Residenza Elettiva)</option>
+            </select>
+          </div>
+
+          <!-- Yenileme Bilgileri Kartı -->
+          <div class="subcard">
+            <h4>Yenileme Bilgileri (Sadece Rinnovo / Aggiornamento ise)</h4>
+            <div class="note-box alert-warning">
+              ⚠️ <strong>Oturum kartı yenileyenler içindir:</strong> Eski oturum kartınızın bilgilerini girin. İlk başvurunuz ise bu alanı boş bırakabilirsiniz.
+            </div>
+            <div class="form-row">
+              <div class="form-group col-6">
+                <label>18. Mevcut Kart No</label>
+                <input type="text" id="inp_num_permesso_possesso" class="form-control uppercase" placeholder="Örn: I01234567" maxlength="14">
+              </div>
+              <div class="form-group col-6">
+                <label>20. Son Geçerlilik Tarihi</label>
+                <input type="text" id="inp_scadenza_permesso" class="form-control date-mask" placeholder="GG/AA/YYYY" maxlength="10">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BÖLÜM 2: Sezione 2 -->
+        <section class="form-section-card" id="sec-2">
+          <div class="section-title">
+            <span class="sec-badge">SEZIONE 2 • SAYFA 1</span>
+            <h3>Dati sull'Istanza Compilata (Evrak & Dosya)</h3>
+          </div>
+          <p class="section-desc">Zarfa koyulacak ek evrak adedi ve başvuru tarihi.</p>
+
+          <div class="note-box alert-info">
+            💡 <strong>Önemli Tavsiye:</strong> Bu bölümü (ek evrak adedi ve teslim tarihi) en son her şeyi tamamlayıp sarı zarfınızı hazırladıktan sonra doldurun.
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label>
+                22-23. Modulo 1 Dolduruldu
+                <span class="info-tag" title="Bu form (Modulo 1) doldurulduğunda işaretlenir.">?</span>
+              </label>
+              <select id="inp_moduli_compilati" class="form-control">
+                <option value="1">Sadece Modulo 1 (Öğrenci, vb.)</option>
+                <option value="2">Modulo 1 ve Modulo 2 (İş / Gelir Bildirimi Olanlar)</option>
+              </select>
+            </div>
+            <div class="form-group col">
+              <label>
+                25. Toplam Sayfa Sayısı (Fogli)
+                <span class="info-tag" title="DİKKAT: Zarfın içine koyduğunuz tüm fotokopiler (Pasaport, sigorta, öğrenci belgesi vb.) + bu formun 8 sayfası toplamıdır!">?</span>
+              </label>
+              <input type="number" id="inp_totale_fogli" class="form-control" min="8" max="99" value="16">
+              <span class="hint">Örn: 8 sayfa form + 8 sayfa ek evrak fotokopisi = 16</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label>
+                26. Bakmakla Yükümlü Çocuk (Figli a carico)
+                <span class="info-tag" title="Varsa İtalya'da sizinle yaşayan 14 yaşından küçük çocuk sayısı. Yoksa 0.">?</span>
+              </label>
+              <input type="number" id="inp_figli_carico" class="form-control" min="0" max="9" value="0">
+            </div>
+            <div class="form-group col">
+              <label>
+                28. Postaneye Teslim Tarihi (Data)
+                <span class="info-tag" title="Formu postaneye (Sportello Amico) teslim edeceğiniz günün tarihi.">?</span>
+              </label>
+              <input type="text" id="inp_data_presentazione" class="form-control date-mask" placeholder="GG/AA/YYYY" maxlength="10">
+            </div>
+          </div>
+
+          <div class="alert-box">
+            <strong>Not (Firma):</strong> 29 numaralı kutucuk ıslak imzanız içindir. Form çıktısını aldıktan sonra bu kutunun içine siyah tükenmez kalemle imzanızı atınız.
+          </div>
+        </section>
+
+        <!-- BÖLÜM 3: Sezione 3 -->
+        <section class="form-section-card" id="sec-3">
+          <div class="section-title">
+            <span class="sec-badge">SEZIONE 3 • SAYFA 2</span>
+            <h3>Dati Anagrafici (Kişisel Bilgiler)</h3>
+          </div>
+          <p class="section-desc">Doğum, vatandaşlık ve kimlik detayları.</p>
+
+          <div class="form-group">
+            <label>
+              31. İtalyan Vergi Kodu (Codice Fiscale)
+              <span class="info-tag" title="16 haneli vergi kimlik kodu.">?</span>
+            </label>
+            <input type="text" id="inp_codice_fiscale" class="form-control uppercase mono" placeholder="Örn: YLMHMT01E15Z104A" maxlength="16">
+            <span class="hint">Agenzia delle Entrate'den henüz almadıysanız Universitaly portalındaki kodunuzu yazabilir veya <a href="https://codicefiscale.com/" target="_blank" rel="noopener">codicefiscale.com</a> üzerinden ücretsiz hesaplatabilirsiniz.</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label>
+                32. Medeni Hali (Stato Civile)
+                <span class="info-tag" title="Resmi kod: Bekar için 'A', Evli için 'B' olarak forma otomatik yazılır.">?</span>
+              </label>
+              <select id="inp_stato_civile" class="form-control">
+                <option value="A">Bekar (A - Single / Celibe / Nubile)</option>
+                <option value="B">Evli (B - Coniugato/a)</option>
+              </select>
+            </div>
+            <div class="form-group col">
+              <label>
+                33. Cinsiyet (Sesso)
+                <span class="info-tag" title="M = Erkek (Maschio), F = Kadın (Femmina)">?</span>
+              </label>
+              <select id="inp_sesso" class="form-control">
+                <option value="M">Erkek (M - Maschio)</option>
+                <option value="F">Kadın (F - Femmina)</option>
+              </select>
+            </div>
+            <div class="form-group col">
+              <label>
+                34. Doğum Tarihi (Nato/a il)
+              </label>
+              <input type="text" id="inp_data_nascita" class="form-control date-mask" placeholder="GG/AA/YYYY" maxlength="10">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label>
+                35. Doğduğu Ülke (Stato Nascita)
+                <span class="info-tag" title="Resmi Tabella 3'e göre 3 harfli uluslararası ülke kodu otomatik atanır.">?</span>
+              </label>
+              <select id="inp_stato_nascita" class="form-control select-country"></select>
+            </div>
+            <div class="form-group col">
+              <label>
+                36. Vatandaşlık (Cittadinanza)
+                <span class="info-tag" title="Vatandaşı olduğunuz ülkenin resmi 3 harfli kodu.">?</span>
+              </label>
+              <select id="inp_stato_cittadinanza" class="form-control select-country"></select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-8">
+              <label>
+                38. Doğum Yeri (Pasaportta Yazan)
+                <span class="info-tag" title="Pasaportunuzun doğum yeri hanesinde ilçe veya il ne yazıyorsa birebir aynısını yazın (Örn: KADIKOY).">?</span>
+              </label>
+              <input type="text" id="inp_citta_nascita" class="form-control uppercase" placeholder="Örn: KADIKOY" maxlength="50">
+            </div>
+            <div class="form-group col-4">
+              <label>
+                37. Mülteci (Rifugiato)
+              </label>
+              <select id="inp_rifugiato" class="form-control">
+                <option value="NO">Hayır (NO)</option>
+                <option value="SI">Evet (SI)</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- BÖLÜM 4: Sezione 4 -->
+        <section class="form-section-card" id="sec-4">
+          <div class="section-title">
+            <span class="sec-badge">SEZIONE 4 • SAYFA 2</span>
+            <h3>Dati Documento di Identità (Pasaport)</h3>
+          </div>
+          <p class="section-desc">Kimlik belgeniz ve pasaport geçerlilik bilgileri.</p>
+
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label>40. Belge Türü</label>
+              <select id="inp_tipo_documento" class="form-control">
+                <option value="passaporto">Passaporto (Normal Pasaport)</option>
+                <option value="altro">Altro (Diğer Belge)</option>
+              </select>
+            </div>
+            <div class="form-group col-6">
+              <label>
+                44. Pasaport Numarası
+                <span class="info-tag" title="Pasaportunuzun sağ üstünde bulunan U veya harfli numara.">?</span>
+              </label>
+              <input type="text" id="inp_num_passaporto" class="form-control uppercase mono" placeholder="Örn: U12345678" maxlength="14">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label>
+                45. Son Geçerlilik Tarihi (Valido sino al)
+              </label>
+              <input type="text" id="inp_pass_scadenza" class="form-control date-mask" placeholder="GG/AA/YYYY" maxlength="10">
+            </div>
+            <div class="form-group col-6">
+              <label>
+                46. Veren Makam (Rilasciato da)
+                <span class="info-tag" title="Tabella 5: Kendi ülkenizin içişleri/nüfus müdürlüğü vermişse 01, konsolosluk/elçilik vermişse 02/03 seçilir.">?</span>
+              </label>
+              <select id="inp_rilasciato_da" class="form-control">
+                <option value="01">01 - Governo (Kendi Devletiniz / Pasaport Şubesi)</option>
+                <option value="02">02 - Rappresentanza all'estero (Yurtdışı Konsolosluk)</option>
+                <option value="03">03 - Rappresentanza in Italia (İtalya'daki Konsolosluk)</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- BÖLÜM 5: Sezione 5 -->
+        <section class="form-section-card" id="sec-5">
+          <div class="section-title">
+            <span class="sec-badge">SEZIONE 5 • SAYFA 2</span>
+            <h3>Dati Visto (Vize Bilgileri - İlk Yıl İçin)</h3>
+          </div>
+          <p class="section-desc">Pasaportunuzdaki İtalyan vize etiketi (Visto) bilgileri. (İlk kez başvuranlar içindir, yenileme yapanlar boş bırakabilir).</p>
+
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label>
+                48. İtalya'ya Giriş Tarihi
+                <span class="info-tag" title="Schengen alanına ilk girdiğiniz tarih (pasaporttaki sınır polisinin giriş kaşesi tarihi).">?</span>
+              </label>
+              <input type="text" id="inp_data_ingresso" class="form-control date-mask" placeholder="GG/AA/YYYY" maxlength="10">
+            </div>
+            <div class="form-group col-6">
+              <label>
+                49. Giriş Sınır Kapısı (Frontiera)
+                <span class="info-tag" title="İlk giriş yaptığınız havaalanı veya sınır (Örn: ROMA FIUMICINO veya MILANO MALPENSA).">?</span>
+              </label>
+              <input type="text" id="inp_frontiera" class="form-control uppercase" placeholder="Örn: ROMA FIUMICINO" maxlength="26">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-4">
+              <label>
+                50. Vize No (Numero Visto)
+                <span class="info-tag" title="Vize etiketinizin sağ üst köşesindeki numara (Varsa baştaki 0 yazılmaz).">?</span>
+              </label>
+              <input type="text" id="inp_num_visto" class="form-control uppercase mono" placeholder="Örn: 01234567" maxlength="8">
+            </div>
+            <div class="form-group col-4">
+              <label>51. Vize Türü</label>
+              <input type="text" id="inp_tipo_visto" class="form-control uppercase mono" value="D" maxlength="1">
+            </div>
+            <div class="form-group col-4">
+              <label>Giriş Hakkı</label>
+              <select id="inp_tipo_ingresso" class="form-control">
+                <option value="multiplo">53. Çoklu (Multiplo)</option>
+                <option value="singolo">52. Tek (Singolo)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-8">
+              <label>
+                54. Vize Nedeni (Motivo Visto)
+                <span class="info-tag" title="Vizenizin üzerinde 'Annotazioni' veya 'Motivo' kısmında yazan kelime (Örn: STUDIO veya LAVORO).">?</span>
+              </label>
+              <input type="text" id="inp_motivo_visto" class="form-control uppercase" value="STUDIO" maxlength="50">
+            </div>
+            <div class="form-group col-4">
+              <label>55. Süre (Gün)</label>
+              <input type="number" id="inp_durata_visto" class="form-control" value="365" min="1" max="999">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label>56. Başlangıç Tarihi (Valido dal)</label>
+              <input type="text" id="inp_visto_valido_dal" class="form-control date-mask" placeholder="GG/AA/YYYY" maxlength="10">
+            </div>
+            <div class="form-group col-6">
+              <label>57. Bitiş Tarihi (Sino al)</label>
+              <input type="text" id="inp_visto_valido_al" class="form-control date-mask" placeholder="GG/AA/YYYY" maxlength="10">
+            </div>
+          </div>
+        </section>
+
+        <!-- BÖLÜM 7: Sezione 7 -->
+        <section class="form-section-card" id="sec-7">
+          <div class="section-title">
+            <span class="sec-badge">SEZIONE 7 • SAYFA 3</span>
+            <h3>Recapito in Italia (İtalya İkamet & İletişim)</h3>
+          </div>
+          <p class="section-desc">İtalya'da kaldığınız adres, posta kodu ve iletişim bilgileri. Eğer henüz adresiniz kesinleşmemişse okulunuzun veya geçici kaldığınız yerin adresi girilmesi önerilir.</p>
+
+          <div class="form-row">
+            <div class="form-group col-4">
+              <label>
+                66. İl (Provincia)
+                <span class="info-tag" title="Kaldığınız ilin 2 harfli kodu (Sigla).">?</span>
+              </label>
+              <select id="inp_recapito_provincia" class="form-control select-prov">
+                <option value="">İl...</option>
+              </select>
+            </div>
+            <div class="form-group col-8">
+              <label>
+                67. Şehir / Belediye (Comune)
+              </label>
+              <input type="text" id="inp_recapito_comune" class="form-control uppercase" placeholder="Örn: MILANO" maxlength="28">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              68. Adres (Indirizzo)
+              <span class="info-tag" title="Sokak / Cadde adı (Örn: VIA DANTE ALIGHIERI).">?</span>
+            </label>
+            <input type="text" id="inp_recapito_indirizzo" class="form-control uppercase" placeholder="Örn: VIA DANTE ALIGHIERI" maxlength="58">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-3">
+              <label>69. Kapı No (Numero Civico)</label>
+              <input type="text" id="inp_recapito_civico_num" class="form-control uppercase" placeholder="Örn: 14" maxlength="4">
+              <span class="hint">Bina sokak kapı no</span>
+            </div>
+            <div class="form-group col-3">
+              <label>70. Kat No (Scala)</label>
+              <input type="text" id="inp_recapito_scala" class="form-control uppercase" placeholder="Örn: 2" maxlength="4">
+              <span class="hint">Kaçıncı katta olduğunuz</span>
+            </div>
+            <div class="form-group col-3">
+              <label>71. İç Kapı No (Interno)</label>
+              <input type="text" id="inp_recapito_interno" class="form-control uppercase" placeholder="Örn: 6" maxlength="4">
+              <span class="hint">Daire / iç kapı no</span>
+            </div>
+            <div class="form-group col-3">
+              <label>72. Posta Kodu (CAP)</label>
+              <input type="text" id="inp_recapito_cap" class="form-control mono" placeholder="Örn: 20121" maxlength="5">
+              <span class="hint">5 haneli CAP</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>73. E-Posta Adresi</label>
+            <input type="email" id="inp_recapito_email" class="form-control uppercase" placeholder="Örn: AHMET.YILMAZ@GMAIL.COM" maxlength="48">
+          </div>
+
+          <!-- 75. Cep Telefonu (İtalya) -->
+          <div class="form-group">
+            <label>
+              75. Cep Telefonu (İtalya)
+              <span class="info-tag" title="Format: 0039 / 3519871234">?</span>
+            </label>
+            <div class="phone-split-input">
+              <div class="phone-prefix-wrap">
+                <span class="phone-label">Alan Kodu</span>
+                <input type="text" id="inp_phone_prefix" class="form-control mono" value="0039" maxlength="4">
+              </div>
+              <span class="phone-slash">/</span>
+              <div class="phone-number-wrap">
+                <span class="phone-label">İtalyan Cep Numarası</span>
+                <input type="tel" id="inp_phone_number" class="form-control mono" placeholder="Örn: 3519871234" maxlength="12">
+              </div>
+            </div>
+            <span class="hint">Resmi form formatı: 0039 / 3519871234</span>
+          </div>
+        </section>
+
+        <!-- BÖLÜM 8: Sezione 9 (Sayfa 4) -->
+        <section class="form-section-card" id="sec-9">
+          <div class="section-title">
+            <span class="sec-badge">SEZIONE 9 • SAYFA 4</span>
+            <h3>Carta di Soggiorno (Uzun Dönem Oturum & Geçmiş İkametler)</h3>
+          </div>
+          <p class="section-desc">Konut uygunluk belgesi ve son 6 yılda ikamet ettiğiniz adreslerin geçmişi.</p>
+
+          <div class="note-box alert-warning">
+            ⚠️ <strong>Sadece Uzun Dönem Oturum Kartı (Carta di Soggiorno) Başvuruları İçindir:</strong><br>
+            Bu sayfa sadece <strong>6 yıldan uzun süre ikamet edip uzun oturum kartını (carta olan) alacaklar içindir</strong>. Son 6 yılda kalınan yerler ve belediyeden alınan konut uygunluk belgesi (<em>Idoneità Alloggiativa</em>) bilgileri buraya yazılır. Standart 1 yıllık öğrenci oturum izni alan öğrencilerin burayı doldurmasına gerek yoktur.
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label>87. Belge Tarihi (Rilasciata in data)</label>
+              <input type="text" id="inp_data_idoneita" class="form-control date-mask" placeholder="GG/AA/YYYY" maxlength="10">
+            </div>
+            <div class="form-group col-6">
+              <label>88-89. Veren Belediye (Comune / Prov)</label>
+              <input type="text" id="inp_comune_rilascio" class="form-control uppercase" placeholder="Örn: MILANO" maxlength="28">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>95. Son 6 Yılda İkamet Edilen Yer 1 (96. Prov, 97. Comune, 98. Indirizzo)</label>
+            <div class="form-row">
+              <div class="form-group col-3">
+                <input type="text" id="inp_soggiorno1_provincia" class="form-control uppercase" placeholder="Prov (MI)" maxlength="2">
+              </div>
+              <div class="form-group col-4">
+                <input type="text" id="inp_soggiorno1_comune" class="form-control uppercase" placeholder="Comune" maxlength="28">
+              </div>
+              <div class="form-group col-5">
+                <input type="text" id="inp_soggiorno1_indirizzo" class="form-control uppercase" placeholder="Sokak / Cadde" maxlength="56">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Son 6 Yılda İkamet Edilen Yer 2 (99. Prov, 100. Comune, 101. Indirizzo)</label>
+            <div class="form-row">
+              <div class="form-group col-3">
+                <input type="text" id="inp_soggiorno2_provincia" class="form-control uppercase" placeholder="Prov" maxlength="2">
+              </div>
+              <div class="form-group col-4">
+                <input type="text" id="inp_soggiorno2_comune" class="form-control uppercase" placeholder="Comune" maxlength="28">
+              </div>
+              <div class="form-group col-5">
+                <input type="text" id="inp_soggiorno2_indirizzo" class="form-control uppercase" placeholder="Sokak / Cadde" maxlength="56">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Son 6 Yılda İkamet Edilen Yer 3 (102. Prov, 103. Comune, 104. Indirizzo)</label>
+            <div class="form-row">
+              <div class="form-group col-3">
+                <input type="text" id="inp_soggiorno3_provincia" class="form-control uppercase" placeholder="Prov" maxlength="2">
+              </div>
+              <div class="form-group col-4">
+                <input type="text" id="inp_soggiorno3_comune" class="form-control uppercase" placeholder="Comune" maxlength="28">
+              </div>
+              <div class="form-group col-5">
+                <input type="text" id="inp_soggiorno3_indirizzo" class="form-control uppercase" placeholder="Sokak / Cadde" maxlength="56">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- AÇILIR EK BÖLÜMLER (SAYFA 5 - 8 / MADDE 119 - 173) -->
+        <div class="advanced-accordion-wrapper">
+          <button type="button" class="advanced-toggle-btn" id="btn-toggle-advanced">
+            <div class="toggle-btn-left">
+              <span class="toggle-icon-wrap">⚙️</span>
+              <div>
+                <strong>Ek & İleri Düzey Bölümler (Sayfa 5 - 8 / Madde 119 - 173)</strong>
+                <span class="toggle-sub">Öğrenciler için gerekli değildir • İsteğe bağlı</span>
+              </div>
+            </div>
+            <svg class="chevron-icon" id="advanced-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="advanced-content" id="advanced-content" style="display: none;">
+            
+            <div class="note-box alert-info">
+              🎓 <strong>Öğrenci Başvuruları İçin Bilgilendirme:</strong> İlk başvuru veya yenileme yapan öğrencilerin 4. sayfadan sonrasını (Sayfa 5, 6, 7 ve 8) doldurmasına <strong>gerek yoktur</strong>. Bu sayfalar birlikte yaşayan aile bireyleri, eş ve 14 yaşından küçük çocuk bildiren aile birleşimleri içindir. İhtiyacınız olması durumunda aşağıdaki alanları doldurabilirsiniz.
+            </div>
+
+            <!-- SEZIONE 10: Sayfa 5 (Madde 119 - 127) -->
+            <div class="form-section-card sub-section">
+              <div class="section-title">
+                <span class="sec-badge">SEZIONE 10 • SAYFA 5</span>
+                <h3>Familiari a Carico Conviventi (Birlikte Yaşayan Aile Bireyleri)</h3>
+              </div>
+              <p class="section-desc">İtalya'da sizinle aynı adreste yaşayan bakmakla yükümlü aile bireyleri.</p>
+
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <label>120. Birlikte Yaşayan Kişi Sayısı</label>
+                  <input type="number" id="inp_conviventi_numero" class="form-control" min="0" max="99" placeholder="Örn: 1">
+                </div>
+                <div class="form-group col-6">
+                  <label>124. Çocuk Sayısı (Figli)</label>
+                  <input type="number" id="inp_parentela_figli_num" class="form-control" min="0" max="9" placeholder="Örn: 0">
+                </div>
+              </div>
+            </div>
+
+            <!-- SEZIONE 11: Sayfa 6 (Madde 128 - 135) -->
+            <div class="form-section-card sub-section">
+              <div class="section-title">
+                <span class="sec-badge">SEZIONE 11 • SAYFA 6</span>
+                <h3>Coniuge (Eş Bilgileri)</h3>
+              </div>
+              <p class="section-desc">Evli olan başvuru sahipleri için eşin kimlik detayları.</p>
+
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <label>129. Soyadı (Cognome)</label>
+                  <input type="text" id="inp_coniuge_cognome" class="form-control uppercase" placeholder="Eş Soyadı" maxlength="56">
+                </div>
+                <div class="form-group col-6">
+                  <label>130. Adı (Nome)</label>
+                  <input type="text" id="inp_coniuge_nome" class="form-control uppercase" placeholder="Eş Adı" maxlength="56">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-4">
+                  <label>131. Cinsiyet</label>
+                  <select id="inp_coniuge_sesso" class="form-control">
+                    <option value="">Seçiniz</option>
+                    <option value="F">F (Kadın)</option>
+                    <option value="M">M (Erkek)</option>
+                  </select>
+                </div>
+                <div class="form-group col-4">
+                  <label>132. Doğum Tarihi</label>
+                  <input type="text" id="inp_coniuge_data_nascita" class="form-control date-mask" placeholder="GG/AA/YYYY" maxlength="10">
+                </div>
+                <div class="form-group col-4">
+                  <label>134. Vatandaşlık Kodu</label>
+                  <input type="text" id="inp_coniuge_cod_cittadinanza" class="form-control uppercase" placeholder="TUR" maxlength="3">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>135. Doğum Yeri (Città di nascita)</label>
+                <input type="text" id="inp_coniuge_citta_nascita" class="form-control uppercase" placeholder="Doğum Yeri" maxlength="56">
+              </div>
+            </div>
+
+            <!-- SEZIONE 12: Sayfa 6, 7 & 8 (Madde 136 - 173) -->
+            <div class="form-section-card sub-section">
+              <div class="section-title">
+                <span class="sec-badge">SEZIONE 12 • SAYFA 6, 7 & 8</span>
+                <h3>Figli Minori di 14 Anni (14 Yaşından Küçük Çocuklar)</h3>
+              </div>
+              <p class="section-desc">İtalya'da sizinle ikamet eden 14 yaş altı çocuklar (173. maddeye kadar).</p>
+
+              <!-- 1. Çocuk -->
+              <h5 class="sub-child-title">1. Çocuk (Sayfa 6 / Madde 137 - 143)</h5>
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <input type="text" id="inp_figlio1_cognome" class="form-control uppercase" placeholder="137. Soyadı" maxlength="56">
+                </div>
+                <div class="form-group col-6">
+                  <input type="text" id="inp_figlio1_nome" class="form-control uppercase" placeholder="138. Adı" maxlength="56">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio1_data_nascita" class="form-control date-mask" placeholder="140. Doğum Tarihi" maxlength="10">
+                </div>
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio1_cod_cittadinanza" class="form-control uppercase" placeholder="142. Vatandaşlık (TUR)" maxlength="3">
+                </div>
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio1_citta_nascita" class="form-control uppercase" placeholder="143. Doğum Yeri" maxlength="56">
+                </div>
+              </div>
+
+              <!-- 2. Çocuk -->
+              <h5 class="sub-child-title">2. Çocuk (Sayfa 7 / Madde 145 - 151)</h5>
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <input type="text" id="inp_figlio2_cognome" class="form-control uppercase" placeholder="145. Soyadı" maxlength="56">
+                </div>
+                <div class="form-group col-6">
+                  <input type="text" id="inp_figlio2_nome" class="form-control uppercase" placeholder="146. Adı" maxlength="56">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio2_data_nascita" class="form-control date-mask" placeholder="148. Doğum Tarihi" maxlength="10">
+                </div>
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio2_cod_cittadinanza" class="form-control uppercase" placeholder="150. Vatandaşlık (TUR)" maxlength="3">
+                </div>
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio2_citta_nascita" class="form-control uppercase" placeholder="151. Doğum Yeri" maxlength="56">
+                </div>
+              </div>
+
+              <!-- 3. Çocuk -->
+              <h5 class="sub-child-title">3. Çocuk (Sayfa 7 / Madde 152 - 158)</h5>
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <input type="text" id="inp_figlio3_cognome" class="form-control uppercase" placeholder="152. Soyadı" maxlength="56">
+                </div>
+                <div class="form-group col-6">
+                  <input type="text" id="inp_figlio3_nome" class="form-control uppercase" placeholder="153. Adı" maxlength="56">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio3_data_nascita" class="form-control date-mask" placeholder="155. Doğum Tarihi" maxlength="10">
+                </div>
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio3_cod_cittadinanza" class="form-control uppercase" placeholder="157. Vatandaşlık (TUR)" maxlength="3">
+                </div>
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio3_citta_nascita" class="form-control uppercase" placeholder="158. Doğum Yeri" maxlength="56">
+                </div>
+              </div>
+
+              <!-- 4. Çocuk -->
+              <h5 class="sub-child-title">4. Çocuk (Sayfa 8 / Madde 160 - 166)</h5>
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <input type="text" id="inp_figlio4_cognome" class="form-control uppercase" placeholder="160. Soyadı" maxlength="56">
+                </div>
+                <div class="form-group col-6">
+                  <input type="text" id="inp_figlio4_nome" class="form-control uppercase" placeholder="161. Adı" maxlength="56">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio4_data_nascita" class="form-control date-mask" placeholder="163. Doğum Tarihi" maxlength="10">
+                </div>
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio4_cod_cittadinanza" class="form-control uppercase" placeholder="165. Vatandaşlık (TUR)" maxlength="3">
+                </div>
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio4_citta_nascita" class="form-control uppercase" placeholder="166. Doğum Yeri" maxlength="56">
+                </div>
+              </div>
+
+              <!-- 5. Çocuk -->
+              <h5 class="sub-child-title">5. Çocuk (Sayfa 8 / Madde 167 - 173)</h5>
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <input type="text" id="inp_figlio5_cognome" class="form-control uppercase" placeholder="167. Soyadı" maxlength="56">
+                </div>
+                <div class="form-group col-6">
+                  <input type="text" id="inp_figlio5_nome" class="form-control uppercase" placeholder="168. Adı" maxlength="56">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio5_data_nascita" class="form-control date-mask" placeholder="170. Doğum Tarihi" maxlength="10">
+                </div>
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio5_cod_cittadinanza" class="form-control uppercase" placeholder="172. Vatandaşlık (TUR)" maxlength="3">
+                </div>
+                <div class="form-group col-4">
+                  <input type="text" id="inp_figlio5_citta_nascita" class="form-control uppercase" placeholder="173. Doğum Yeri" maxlength="56">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Yasal Uyarı, Gizlilik ve Lisans Kartı (Legal Notice & Disclaimer) -->
+        <footer class="legal-notice-card">
+          <h4>Yasal Uyarı & Gizlilik Bildirimi (Legal Disclaimer)</h4>
+          <p>
+            <strong>Resmi Kurum Bağımsızlığı:</strong> Bu yazılım ve internet sitesi, İtalyan İçişleri Bakanlığı (<em>Ministero dell'Interno</em>), İtalyan Emniyeti (<em>Questura</em>) veya İtalyan Postanesi (<em>Poste Italiane</em>) ile herhangi bir resmi bağa, ortaklığa veya yetkilendirmeye sahip değildir. Başvuru sahiplerinin resmi formları kurallara uygun doldurabilmelerine yardımcı olmak amacıyla bağımsız olarak geliştirilmiş açık kaynaklı bir topluluk aracıdır.
+          </p>
+          <p>
+            <strong>Kullanıcı Sorumluluğu:</strong> Bu araç üzerinden oluşturulan ve indirilen belgelerin içeriğindeki bilgilerin doğruluğu ve resmi makamlara sunulması tamamen kullanıcının kendi sorumluluğundadır. Resmi başvurularda İtalyan makamlarının güncel mevzuat ve kılavuzları esas alınmalıdır.
+          </p>
+          <p>
+            <strong>%100 Gizlilik Güvencesi:</strong> Bu sistem tamamen kullanıcının kendi internet tarayıcısında (istemci tarafında) çalışır. Form alanlarına girilen hiçbir kişisel veri (isim, pasaport no, vergi kodu, adres vb.) hiçbir sunucuya iletilmez, kaydedilmez ve depolanmaz.
+          </p>
+          <div class="license-badge-row">
+            <span class="gpl-tag">Açık Kaynak • GNU GPL v3.0 Lisansı</span>
+            <span>Kaynak kodları GitHub üzerinde özgürce paylaşılabilir ve geliştirilebilir.</span>
+          </div>
+        </footer>
+
+      </div>
+    </aside>
+
+    <!-- Sağ Panel: Canlı 8 Sayfa Önizleme -->
+    <section class="preview-pane">
+      <div class="preview-toolbar">
+        <div class="preview-toolbar-spacer"></div>
+        <div class="zoom-controls">
+          <button id="btn-zoom-out" class="icon-btn" title="Uzaklaştır">−</button>
+          <span id="zoom-level">100%</span>
+          <button id="btn-zoom-in" class="icon-btn" title="Yakınlaştır">+</button>
+          <button id="btn-zoom-reset" class="icon-btn" title="Sıfırla">⟲</button>
+        </div>
+      </div>
+
+      <div class="preview-viewport" id="preview-viewport">
+        <div class="pages-scroll-wrapper" id="pages-scroll-wrapper">
+          <!-- 8 Sayfa Kesintisiz Dikey Akış Olarak Listelenir -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="field_mappings_data.js"></script>
+  <script src="template_pdf_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
