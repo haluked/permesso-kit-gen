@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupDateMasks();
   setupAccordionToggle();
   setupLanguageSwitcher();
+  setupWelcomeModal();
   setLanguage(currentLang);
   loadDemoData(); // Varsayılan olarak Torino ve HALUK YILMAZ ile başlar
   renderOverlay();
@@ -79,6 +80,49 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btn-clear").addEventListener("click", clearForm);
   document.getElementById("btn-download").addEventListener("click", downloadOfficialPdf);
 });
+
+// Bilgilendirme Modalı (Welcome Modal)
+function setupWelcomeModal() {
+  const overlay = document.getElementById("welcome-modal-overlay");
+  const btnClose = document.getElementById("modal-close-btn");
+  const btnCloseX = document.getElementById("modal-close-icon");
+  const btnSwitch = document.getElementById("modal-switch-lang");
+  const btnOpen = document.getElementById("btn-open-info");
+
+  if (!overlay) return;
+
+  const closeModal = () => {
+    overlay.classList.add("hidden");
+  };
+
+  const openModal = () => {
+    overlay.classList.remove("hidden");
+  };
+
+  if (btnClose) btnClose.addEventListener("click", closeModal);
+  if (btnCloseX) btnCloseX.addEventListener("click", closeModal);
+  if (btnOpen) btnOpen.addEventListener("click", openModal);
+
+  // Dışına tıklayınca kapat
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  // ESC ile kapat
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !overlay.classList.contains("hidden")) {
+      closeModal();
+    }
+  });
+
+  // Modal üstündeki dil değiştirme butonu
+  if (btnSwitch) {
+    btnSwitch.addEventListener("click", () => {
+      const nextLang = currentLang === "tr" ? "en" : "tr";
+      setLanguage(nextLang);
+    });
+  }
+}
 
 // Dil Değiştirme Motoru (i18n)
 function setLanguage(lang) {

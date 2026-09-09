@@ -27,16 +27,25 @@
 <div class="header-actions">
 <!-- Dil Değiştirici (Language Switcher) -->
 <div class="lang-switcher" id="lang-switcher">
-<button class="lang-btn active" id="lang-btn-tr" title="Türkçe" type="button">
-<span class="flag-icon">🇹🇷</span>
-<span class="lang-code">TR</span>
-</button>
-<button class="lang-btn" id="lang-btn-en" title="English" type="button">
-<span class="flag-icon">🇬🇧</span>
-<span class="lang-code">EN</span>
-</button>
+<button class="lang-btn active" id="lang-btn-tr" title="Türkçe" type="button"><svg class="flag-svg" height="12" viewbox="0 0 1200 800" width="18">
+<rect fill="#e30a17" height="800" width="1200"></rect>
+<circle cx="425" cy="400" fill="#ffffff" r="200"></circle>
+<circle cx="475" cy="400" fill="#e30a17" r="160"></circle>
+<polygon fill="#ffffff" points="583.33,400 706.42,439.99 630.34,335.21 630.34,464.79 706.42,360.01"></polygon>
+</svg><span class_="lang-code">TR</span></button>
+<button class="lang-btn" id="lang-btn-en" title="English" type="button"><svg class="flag-svg" height="12" viewbox="0 0 60 30" width="18">
+<clippath id="s_clip"><path d="M0,0 v30 h60 v-30 z"></path></clippath>
+<clippath id="t_clip"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"></path></clippath>
+<g clip-path="url(#s_clip)">
+<path d="M0,0 v30 h60 v-30 z" fill="#012169"></path>
+<path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"></path>
+<path clip-path="url(#t_clip)" d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"></path>
+<path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"></path>
+<path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"></path>
+</g>
+</svg><span class_="lang-code">EN</span></button>
 </div>
-<button class="btn btn-secondary" id="btn-demo">
+<button class_="btn btn-outline" id="btn-open-info" title="Bilgilendirme" type="button"><svg fill="none" height="15" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="15"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line><line x1="12" x2="12.01" y1="8" y2="8"></line></svg><span data-i18n="header_info_btn">Bilgi</span></button><button class="btn btn-secondary" id="btn-demo">
 <svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
 <span data-i18n="btn_demo">Örnek Veri Doldur</span>
 </button>
@@ -68,7 +77,6 @@
 <div class="form-group">
 <label><span class_="lbl-text" data-i18n="fg_0_lbl">
 <span data-i18n="sec1_questura_lbl">Emniyet Müdürlüğü İli (Sigla Provincia)</span>
-
 </span><span class="info-tag" data-i18n-title="fg_0_tip" title="Başvuru yapacağınız ilin 2 harfli kodu (Örn: Milano için MI, Roma için RM, Torino için TO)">?</span></label>
 <select class="form-control select-prov" id="inp_sigla_questura">
 <option data-i18n="fg_0_opt_0" value="">İl Seçiniz...</option>
@@ -79,14 +87,12 @@
 <div class="form-group col">
 <label><span class_="lbl-text" data-i18n="fg_1_lbl">
 <span data-i18n="sec1_cognome_lbl">3. Soyadı (Cognome)</span>
-
 </span><span class="info-tag" data-i18n-title="fg_1_tip" title="Pasaportunuzdaki soyadınızla birebir aynı olmalı. İtalyanca resmi evraklarda büyük harfle yazılır.">?</span></label>
 <input class="form-control uppercase" data-i18n-placeholder="fg_1_ph" id="inp_cognome" maxlength="56" placeholder="Örn: YILMAZ" type="text"/>
 </div>
 <div class="form-group col">
 <label><span class_="lbl-text" data-i18n="fg_2_lbl">
 <span data-i18n="sec1_nome_lbl">4. Adı (Nome)</span>
-
 </span><span class="info-tag" data-i18n-title="fg_2_tip" title="Pasaportunuzdaki adınız ve varsa ikinci adınız.">?</span></label>
 <input class="form-control uppercase" data-i18n-placeholder="fg_2_ph" id="inp_nome" maxlength="56" placeholder="Örn: AHMET" type="text"/>
 </div>
@@ -229,7 +235,6 @@
 <div class="form-group">
 <label><span class_="lbl-text" data-i18n="fg_14_lbl">
 <span data-i18n="sec2_cf_lbl">31. İtalyan Vergi Kodu (Codice Fiscale)</span>
-
 </span><span class="info-tag" data-i18n-title="fg_14_tip" title="16 haneli vergi kimlik kodu.">?</span></label>
 <input class="form-control uppercase mono" data-i18n-placeholder="fg_14_ph" id="inp_codice_fiscale" maxlength="16" placeholder="Örn: YLMHMT01E15Z104A" type="text"/>
 <span class="hint" data-i18n="fg_14_hint">Agenzia delle Entrate'den henüz almadıysanız Universitaly portalındaki kodunuzu yazabilir veya <a href="https://codicefiscale.com/" rel="noopener" target="_blank">codicefiscale.com</a> üzerinden ücretsiz hesaplatabilirsiniz.</span>
@@ -248,7 +253,6 @@
 <div class="form-group col">
 <label><span class_="lbl-text" data-i18n="fg_16_lbl">
 <span data-i18n="sec2_sesso_lbl">33. Cinsiyet (Sesso)</span>
-
 </span><span class="info-tag" data-i18n-title="fg_16_tip" title="M = Erkek (Maschio), F = Kadın (Femmina)">?</span></label>
 <select class="form-control" id="inp_sesso">
 <option data-i18n="fg_16_opt_0" value="M">Erkek (M - Maschio)</option>
@@ -477,7 +481,7 @@
 </div>
 <span class="phone-slash">/</span>
 <div class="phone-number-wrap">
-<span class="phone-label">İtalyan Cep Numarası</span>
+<span class="phone-label" data-i18n="phone_prefix_note">İtalyan Cep Numarası</span>
 <input class="form-control mono" data-i18n-placeholder="sec5_phone_ph" id="inp_phone_number" maxlength="12" placeholder="Örn: 3519871234" type="tel"/>
 </div>
 </div>
@@ -555,7 +559,7 @@
 <span class="toggle-icon-wrap">⚙️</span>
 <div>
 <strong>Ek &amp; İleri Düzey Bölümler (Sayfa 5 - 8 / Madde 119 - 173)</strong>
-<span class="toggle-sub">Öğrenciler için gerekli değildir • İsteğe bağlı</span>
+<span class="toggle-sub" data-i18n="acc_badge_optional">Öğrenciler için gerekli değildir • İsteğe bağlı</span>
 </div>
 </div>
 <svg class="chevron-icon" fill="none" height="18" id="advanced-chevron" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -568,9 +572,9 @@
 <div class="form-section-card sub-section">
 <div class="section-title">
 <span class="sec-badge" data-i18n="acc_sec10_badge">SEZIONE 10 • SAYFA 5</span>
-<h3>Familiari a Carico Conviventi (Birlikte Yaşayan Aile Bireyleri)</h3>
+<h3 data-i18n="acc_conviventi_sec_title">Familiari a Carico Conviventi (Birlikte Yaşayan Aile Bireyleri)</h3>
 </div>
-<p class="section-desc">İtalya'da sizinle aynı adreste yaşayan bakmakla yükümlü aile bireyleri.</p>
+<p class="section-desc" data-i18n="acc_conviventi_sec_desc">İtalya'da sizinle aynı adreste yaşayan bakmakla yükümlü aile bireyleri.</p>
 <div class="form-row">
 <div class="form-group col-6">
 <label><span class_="lbl-text" data-i18n="fg_58_lbl">120. Birlikte Yaşayan Kişi Sayısı</span></label>
@@ -586,9 +590,9 @@
 <div class="form-section-card sub-section">
 <div class="section-title">
 <span class="sec-badge">SEZIONE 11 • SAYFA 6</span>
-<h3>Coniuge (Eş Bilgileri)</h3>
+<h3 data-i18n="acc_coniuge_sec_title">Coniuge (Eş Bilgileri)</h3>
 </div>
-<p class="section-desc">Evli olan başvuru sahipleri için eşin kimlik detayları.</p>
+<p class="section-desc" data-i18n="acc_coniuge_sec_desc">Evli olan başvuru sahipleri için eşin kimlik detayları.</p>
 <div class="form-row">
 <div class="form-group col-6">
 <label><span class_="lbl-text" data-i18n="fg_60_lbl">129. Soyadı (Cognome)</span></label>
@@ -626,9 +630,9 @@
 <div class="form-section-card sub-section">
 <div class="section-title">
 <span class="sec-badge">SEZIONE 12 • SAYFA 6, 7 &amp; 8</span>
-<h3>Figli Minori di 14 Anni (14 Yaşından Küçük Çocuklar)</h3>
+<h3 data-i18n="acc_figli_sec_title">Figli Minori di 14 Anni (14 Yaşından Küçük Çocuklar)</h3>
 </div>
-<p class="section-desc">İtalya'da sizinle ikamet eden 14 yaş altı çocuklar (173. maddeye kadar).</p>
+<p class="section-desc" data-i18n="acc_figli_sec_desc">İtalya'da sizinle ikamet eden 14 yaş altı çocuklar (173. maddeye kadar).</p>
 <!-- 1. Çocuk -->
 <h5 class="sub-child-title" data-i18n="acc_figlio1_title">1. Çocuk (Sayfa 6 / Madde 137 - 143)</h5>
 <div class="form-row">
@@ -783,5 +787,26 @@
 <script src="translations.js"></script>
 <script src="template_pdf_data.js"></script>
 <script src="app.js"></script>
+
+<div class="modal-overlay" id="welcome-modal-overlay">
+<div aria-modal="true" class="modal-dialog" role="dialog">
+<div class="modal-top-bar">
+<button class="modal-lang-toggle" data-i18n="modal_lang_btn" id="modal-switch-lang" type="button">Press for English</button>
+<button aria-label="Kapat" class="modal-close-x" id="modal-close-icon" type="button">×</button>
+</div>
+<div class="modal-body">
+<h2 class="modal-heading" data-i18n="modal_title">İtalyan Oturum İzni Form Asistanına Hoş Geldiniz</h2>
+<ul class="modal-info-list">
+<li data-i18n-html="modal_item_1"><strong>Sol Panel (İnteraktif Form):</strong> İtalyanca resmi maddelerin açıklamalarını kendinize göre doldurabilirsiniz.</li>
+<li data-i18n-html="modal_item_2"><strong>Sağ Panel (Canlı Resmi Belge Önizlemesi):</strong> Sol tarafa yazdığınız her harf, sağdaki orijinal resmi İtalyan belgesinin ilgili kutucuklarına anlık ve milimetrik olarak işlenir. Hangi bilginin resmi evrakta nereye denk geldiğini görebilirsiniz.</li>
+<li data-i18n-html="modal_item_3"><strong>PDF Çıktısı:</strong> İşleminiz bittikten sonra PDF olarak kaydedebilirsiniz. (Fotokopi çekip zarfa koymayın)</li>
+<li data-i18n-html="modal_item_4"><strong>Teknik Altyapı ve Veri Güvenliği:</strong> Bu site tamamen statik HTML/JavaScript ile çalışmaktadır; herhangi bir backend (sunucu tarafı) veya veritabanı bulunmamaktadır. Hiçbir bilgi kaydedilmez veya depolanmaz. Tüm işlemler doğrudan tarayıcınızda yürütülür. Sekmeyi kapattığınız anda girdiğiniz tüm veriler silinir.</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button class="btn btn-primary modal-action-btn" data-i18n="modal_close_btn" id="modal-close-btn" type="button">Kapat</button>
+</div>
+</div>
+</div>
 </body>
 </html>
