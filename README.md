@@ -1,8 +1,13 @@
 # Öğrenciler İçin İtalyan Oturum İzni Form Doldurma Sistemi (Modulo 1)
 
+# Hemen denemek için https://haluked.github.io/permesso-kit-gen/
+
 İtalya'da üniversite eğitimi gören uluslararası öğrenciler için resmi **Permesso di Soggiorno (Mod. 209 - Modulo 1)** başvuru formunu hatasız, hızlı ve interaktif bir şekilde doldurmayı sağlayan modern web uygulaması.
 
 Tamamen **istemci tarafında (Client-Side / HTML5 & Vanilla JavaScript)** çalışır. Kullanıcının girdiği hiçbir kişisel veri herhangi bir sunucuya iletilmez, kaydedilmez veya saklanmaz.
+
+## Uyarı
+Oluşturduğunuz PDF resmi bir evrak değildir, sadece orijinal postanede dolduracağınız evraklar için bir kılavuzdur. Lütfen bu dosyanın çıktısını alıp başvuru zarfınıza eklemeyin; bilgilerinizi orijinal forma tükenmez kalemle bizzat geçirmelisiniz. Bu uygulamanın kullanımından doğabilecek hatalar tamamen kullanıcının sorumluluğundadır.
 
 ##  Özellikler
 
