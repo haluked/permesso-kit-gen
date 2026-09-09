@@ -4,7 +4,7 @@
 
 Tamamen **istemci tarafında (Client-Side / HTML5 & Vanilla JavaScript)** çalışır. Kullanıcının girdiği hiçbir kişisel veri herhangi bir sunucuya iletilmez, kaydedilmez veya saklanmaz.
 
-## 🚀 Özellikler
+##  Özellikler
 
 - **10 Sayfalık Kesintisiz Akış:**
   - **Sayfa 1 (Sarı Zarf / Busta Kılavuzu):** Poste Italiane *Sportello Amico* zarfının boş ve açık bırakılması gerektiğine dair görsel rehber.
@@ -18,7 +18,7 @@ Tamamen **istemci tarafında (Client-Side / HTML5 & Vanilla JavaScript)** çalı
   - Çift yönlü kaydırma: Form alanına tıklandığında sağdaki ilgili resmi belge sayfasına otomatik ve pürüzsüz kaydırma.
 - **Öğrenci Odaklı Sadeleştirme:** Sayfa 5–8 arasındaki aile ve çocuk bölümleri öğrenciler için varsayılan olarak kapalı tutulan akordeon yapısındadır.
 
-## 📦 Kurulum ve Çalıştırma
+##  Kurulum ve Çalıştırma
 
 Herhangi bir backend veya veritabanı gerektirmez. Statik bir web sunucusuyla veya doğrudan GitHub Pages üzerinden yayınlanabilir:
 
