@@ -8,10 +8,31 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
-<link href="styles.css" rel="stylesheet"/>
+<link href="styles.css?v=2" rel="stylesheet"/>
 <script src="vendor/pdf-lib.min.js"></script>
 </head>
 <body>
+<div class="modal-overlay" id="welcome-modal-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 999999; padding: 16px;">
+<div aria-modal="true" class="modal-dialog" role="dialog" style="background: #ffffff; width: 100%; max-width: 620px; border-radius: 8px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); border: 1px solid #cbd5e1; display: flex; flex-direction: column; overflow: hidden;">
+<div class="modal-top-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+<button class="modal-lang-toggle" data-i18n="modal_lang_btn" id="modal-switch-lang" style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 5px; font-size: 12px; font-weight: 600; color: #1e40af; cursor: pointer;" type="button">Press for English</button>
+<button aria-label="Kapat" class="modal-close-x" id="modal-close-icon" style="background: transparent; border: none; font-size: 24px; line-height: 1; color: #64748b; cursor: pointer; padding: 2px 6px;" type="button">×</button>
+</div>
+<div class="modal-body" style="padding: 20px 24px 16px 24px; color: #334155;">
+<h2 class="modal-heading" data-i18n="modal_title" style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0;">İtalyan Oturum İzni Form Asistanına Hoş Geldiniz</h2>
+<ul class="modal-info-list" style="list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 12.5px; line-height: 1.55; color: #334155; padding: 0; margin: 0;">
+<li data-i18n-html="modal_item_1" style="position: relative; padding-left: 14px;"><strong>Sol Panel (İnteraktif Form):</strong> İtalyanca resmi maddelerin açıklamalarını kendinize göre doldurabilirsiniz.</li>
+<li data-i18n-html="modal_item_2" style="position: relative; padding-left: 14px;"><strong>Sağ Panel (Canlı Resmi Belge Önizlemesi):</strong> Sol tarafa yazdığınız her harf, sağdaki orijinal resmi İtalyan belgesinin ilgili kutucuklarına anlık ve milimetrik olarak işlenir. Hangi bilginin resmi evrakta nereye denk geldiğini görebilirsiniz.</li>
+<li data-i18n-html="modal_item_3" style="position: relative; padding-left: 14px;"><strong>PDF Çıktısı:</strong> İşleminiz bittikten sonra PDF olarak kaydedebilirsiniz. (Fotokopi çekip zarfa koymayın)</li>
+<li data-i18n-html="modal_item_4" style="position: relative; padding-left: 14px;"><strong>Teknik Altyapı ve Veri Güvenliği:</strong> Bu site tamamen statik HTML/JavaScript ile çalışmaktadır; herhangi bir backend (sunucu tarafı) veya veritabanı bulunmamaktadır. Hiçbir bilgi kaydedilmez veya depolanmaz. Tüm işlemler doğrudan tarayıcınızda yürütülür. Sekmeyi kapattığınız anda girdiğiniz tüm veriler silinir.</li>
+</ul>
+</div>
+<div class="modal-footer" style="padding: 12px 24px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end;">
+<button class="btn btn-primary modal-action-btn" data-i18n="modal_close_btn" id="modal-close-btn" style="padding: 7px 22px; font-size: 13px; font-weight: 600; cursor: pointer;" type="button">Kapat</button>
+</div>
+</div>
+</div>
+
 <header class="app-header">
 <div class="header-left">
 <div class="header-title-row">
@@ -783,30 +804,14 @@
 </div>
 </section>
 </main>
-<script src="field_mappings_data.js"></script>
-<script src="translations.js"></script>
-<script src="template_pdf_data.js"></script>
-<script src="app.js"></script>
 
-<div class="modal-overlay" id="welcome-modal-overlay">
-<div aria-modal="true" class="modal-dialog" role="dialog">
-<div class="modal-top-bar">
-<button class="modal-lang-toggle" data-i18n="modal_lang_btn" id="modal-switch-lang" type="button">Press for English</button>
-<button aria-label="Kapat" class="modal-close-x" id="modal-close-icon" type="button">×</button>
-</div>
-<div class="modal-body">
-<h2 class="modal-heading" data-i18n="modal_title">İtalyan Oturum İzni Form Asistanına Hoş Geldiniz</h2>
-<ul class="modal-info-list">
-<li data-i18n-html="modal_item_1"><strong>Sol Panel (İnteraktif Form):</strong> İtalyanca resmi maddelerin açıklamalarını kendinize göre doldurabilirsiniz.</li>
-<li data-i18n-html="modal_item_2"><strong>Sağ Panel (Canlı Resmi Belge Önizlemesi):</strong> Sol tarafa yazdığınız her harf, sağdaki orijinal resmi İtalyan belgesinin ilgili kutucuklarına anlık ve milimetrik olarak işlenir. Hangi bilginin resmi evrakta nereye denk geldiğini görebilirsiniz.</li>
-<li data-i18n-html="modal_item_3"><strong>PDF Çıktısı:</strong> İşleminiz bittikten sonra PDF olarak kaydedebilirsiniz. (Fotokopi çekip zarfa koymayın)</li>
-<li data-i18n-html="modal_item_4"><strong>Teknik Altyapı ve Veri Güvenliği:</strong> Bu site tamamen statik HTML/JavaScript ile çalışmaktadır; herhangi bir backend (sunucu tarafı) veya veritabanı bulunmamaktadır. Hiçbir bilgi kaydedilmez veya depolanmaz. Tüm işlemler doğrudan tarayıcınızda yürütülür. Sekmeyi kapattığınız anda girdiğiniz tüm veriler silinir.</li>
-</ul>
-</div>
-<div class="modal-footer">
-<button class="btn btn-primary modal-action-btn" data-i18n="modal_close_btn" id="modal-close-btn" type="button">Kapat</button>
-</div>
-</div>
-</div>
+
+
+
+
+<script src="field_mappings_data.js?v=2"></script>
+<script src="translations.js?v=2"></script>
+<script src="app.js?v=2"></script>
+<script defer src="template_pdf_data.js?v=2"></script>
 </body>
 </html>

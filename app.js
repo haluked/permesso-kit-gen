@@ -92,35 +92,34 @@ function setupWelcomeModal() {
   if (!overlay) return;
 
   const closeModal = () => {
+    overlay.style.display = "none";
     overlay.classList.add("hidden");
   };
 
   const openModal = () => {
+    overlay.style.display = "flex";
     overlay.classList.remove("hidden");
   };
 
-  if (btnClose) btnClose.addEventListener("click", closeModal);
-  if (btnCloseX) btnCloseX.addEventListener("click", closeModal);
-  if (btnOpen) btnOpen.addEventListener("click", openModal);
+  if (btnClose) btnClose.onclick = closeModal;
+  if (btnCloseX) btnCloseX.onclick = closeModal;
+  if (btnOpen) btnOpen.onclick = openModal;
 
-  // Dışına tıklayınca kapat
-  overlay.addEventListener("click", (e) => {
+  overlay.onclick = (e) => {
     if (e.target === overlay) closeModal();
-  });
+  };
 
-  // ESC ile kapat
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !overlay.classList.contains("hidden")) {
+    if (e.key === "Escape") {
       closeModal();
     }
   });
 
-  // Modal üstündeki dil değiştirme butonu
   if (btnSwitch) {
-    btnSwitch.addEventListener("click", () => {
+    btnSwitch.onclick = () => {
       const nextLang = currentLang === "tr" ? "en" : "tr";
       setLanguage(nextLang);
-    });
+    };
   }
 }
 
@@ -137,6 +136,11 @@ function setLanguage(lang) {
   const btnEn = document.getElementById("lang-btn-en");
   if (btnTr) btnTr.classList.toggle("active", lang === "tr");
   if (btnEn) btnEn.classList.toggle("active", lang === "en");
+
+  const btnModalLang = document.getElementById("modal-switch-lang");
+  if (btnModalLang) {
+    btnModalLang.textContent = lang === "tr" ? "Press for English" : "Türkçe";
+  }
 
   const dict = window.TRANSLATIONS ? window.TRANSLATIONS[lang] : null;
   if (!dict) return;
