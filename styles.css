@@ -1433,7 +1433,7 @@ body {
 }
 
 /* Responsive Adaptations for Mobile & Tablet */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   html, body {
     height: auto;
     overflow-y: auto;
