@@ -266,21 +266,42 @@ function setupZoom() {
     zoomText.textContent = `${Math.round(currentZoom * 100)}%`;
   };
 
-  document.getElementById("btn-zoom-in").addEventListener("click", () => updateZoom(currentZoom + 0.15));
-  document.getElementById("btn-zoom-out").addEventListener("click", () => updateZoom(currentZoom - 0.15));
   
-  document.getElementById("btn-zoom-reset").addEventListener("click", () => updateZoom(1.0));
+  
+  
+  
+  let isAutoZoom = true;
 
-  // Initial Responsive Zoom
-  if (window.innerWidth < 500) {
-    updateZoom(0.40);
-  } else if (window.innerWidth < 768) {
-    updateZoom(0.60);
-  } else if (window.innerWidth < 1200) {
-    updateZoom(0.80);
-  } else {
-    updateZoom(1.0);
+  const vp = document.getElementById("preview-viewport");
+  if (vp && window.ResizeObserver) {
+    const ro = new ResizeObserver(entries => {
+      if (!isAutoZoom) return;
+      for (let entry of entries) {
+        // padding is ~48px total (24px each side)
+        let availableW = entry.contentRect.width - 48;
+        if (availableW < 200) availableW = entry.contentRect.width; // fallback
+        let targetZ = availableW / 794;
+        currentZoom = Math.max(0.2, Math.min(2.0, targetZ));
+        wrapper.style.zoom = currentZoom;
+        zoomText.textContent = `${Math.round(currentZoom * 100)}%`;
+      }
+    });
+    ro.observe(vp);
   }
+
+  // If user clicks zoom buttons, disable auto zoom
+  document.getElementById("btn-zoom-in").addEventListener("click", () => { isAutoZoom = false; updateZoom(currentZoom + 0.15); });
+  document.getElementById("btn-zoom-out").addEventListener("click", () => { isAutoZoom = false; updateZoom(currentZoom - 0.15); });
+  document.getElementById("btn-zoom-reset").addEventListener("click", () => { 
+    isAutoZoom = true;
+    if (vp) {
+       let targetZ = (vp.getBoundingClientRect().width - 48) / 794;
+       updateZoom(targetZ);
+    } else {
+       updateZoom(1.0);
+    }
+  }); 
+
 
 }
 
