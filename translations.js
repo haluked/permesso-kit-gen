@@ -267,7 +267,12 @@ window.TRANSLATIONS = {
     "modal_item_3": "<strong>PDF Çıktısı:</strong> İşleminiz bittikten sonra PDF olarak kaydedebilirsiniz. (Fotokopi çekip zarfa koymayın)",
     "modal_item_4": "<strong>Teknik Altyapı ve Veri Güvenliği:</strong> Bu site tamamen statik HTML/JavaScript ile çalışmaktadır; herhangi bir backend (sunucu tarafı) veya veritabanı bulunmamaktadır. Hiçbir bilgi kaydedilmez veya depolanmaz. Tüm işlemler doğrudan tarayıcınızda yürütülür. Sekmeyi kapattığınız anda girdiğiniz tüm veriler silinir.",
     "modal_close_btn": "Kapat",
-    "header_info_btn": "Bilgi"
+    "header_info_btn": "Bilgi",
+    "sec1_rinnovo_title": "Yenileme Bilgileri (Sadece Rinnovo / Aggiornamento ise)",
+    "sec1_rinnovo_alert": "⚠️ <strong>Oturum kartı yenileyenler içindir:</strong> Eski oturum kartınızın bilgilerini girin. İlk başvurunuz ise bu alanı boş bırakabilirsiniz.",
+    "sec2_info_alert": "💡 <strong>Önemli Tavsiye:</strong> Bu bölümü (ek evrak adedi ve teslim tarihi) en son her şeyi tamamlayıp sarı zarfınızı hazırladıktan sonra doldurun.",
+    "sec9_carta_alert": "⚠️ <strong>Sadece Uzun Dönem Oturum Kartı (Carta di Soggiorno) Başvuruları İçindir:</strong><br/>Bu sayfa sadece <strong>6 yıldan uzun süre ikamet edip uzun oturum kartını (carta olan) alacaklar içindir</strong>. Son 6 yılda kalınan yerler ve belediyeden alınan konut uygunluk belgesi (<em>Idoneità Alloggiativa</em>) bilgileri buraya yazılır. Standart 1 yıllık öğrenci oturum izni alan öğrencilerin burayı doldurmasına gerek yoktur.",
+    "sec10_student_alert": "🎓 <strong>Öğrenci Başvuruları İçin Bilgilendirme:</strong> İlk başvuru veya yenileme yapan öğrencilerin 4. sayfadan sonrasını (Sayfa 5, 6, 7 ve 8) doldurmasına <strong>gerek yoktur</strong>. Bu sayfalar birlikte yaşayan aile bireyleri, eş ve 14 yaşından küçük çocuk bildiren aile birleşimleri içindir. İhtiyacınız olması durumunda aşağıdaki alanları doldurabilirsiniz."
   },
   "en": {
     "header_title": "Italian Student Residence Permit Form Assistant",
@@ -542,6 +547,11 @@ window.TRANSLATIONS = {
     "modal_item_3": "<strong>PDF Export:</strong> You can save the completed form as a PDF. (Do not photocopy and place in the envelope)",
     "modal_item_4": "<strong>Technical Architecture & Data Security:</strong> This site operates strictly as static HTML/JavaScript with no backend or database infrastructure. No data is recorded, processed, or stored on any server. All execution occurs locally inside your browser. Once the tab is closed, all session data is permanently deleted.",
     "modal_close_btn": "Close",
-    "header_info_btn": "Info"
+    "header_info_btn": "Info",
+    "sec1_rinnovo_title": "Renewal Information (Only for Rinnovo / Aggiornamento)",
+    "sec1_rinnovo_alert": "⚠️ <strong>For those renewing their permit:</strong> Enter your previous residence permit card details. If this is your first application, you may leave this section blank.",
+    "sec2_info_alert": "💡 <strong>Important Tip:</strong> Fill out this section (number of attached documents and submission date) at the very end, right before preparing your yellow envelope.",
+    "sec9_carta_alert": "⚠️ <strong>Only for Long-Term Residence Card (Carta di Soggiorno) Applications:</strong><br/>This page is exclusively for those who have resided in Italy for more than 5 years and are applying for a long-term residence card. Information regarding addresses lived in over the past 6 years and the housing suitability certificate (<em>Idoneità Alloggiativa</em>) must be entered here. Students applying for standard 1-year residence permits do not need to fill out this section.",
+    "sec10_student_alert": "🎓 <strong>Information for Student Applications:</strong> Students making their first application or renewal <strong>do not need to</strong> fill out anything past Page 4 (Pages 5, 6, 7, and 8). These pages are intended for family reunions declaring cohabiting family members, spouses, and children under 14. If you have such dependents, you may fill out the fields below."
   }
 };
