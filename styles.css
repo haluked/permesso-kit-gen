@@ -57,6 +57,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .header-badge {
@@ -615,8 +616,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 32px;
-  transform-origin: top center;
-  transition: transform 0.12s ease-out;
+  transition: zoom 0.12s ease-out;
   padding-bottom: 60px;
 }
 

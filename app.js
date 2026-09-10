@@ -262,7 +262,7 @@ function setupZoom() {
 
   const updateZoom = (z) => {
     currentZoom = Math.max(0.3, Math.min(2.0, z));
-    wrapper.style.transform = `scale(${currentZoom})`;
+    wrapper.style.zoom = currentZoom;
     zoomText.textContent = `${Math.round(currentZoom * 100)}%`;
   };
 
