@@ -261,14 +261,27 @@ function setupZoom() {
   const zoomText = document.getElementById("zoom-level");
 
   const updateZoom = (z) => {
-    currentZoom = Math.max(0.5, Math.min(1.6, z));
+    currentZoom = Math.max(0.3, Math.min(2.0, z));
     wrapper.style.transform = `scale(${currentZoom})`;
     zoomText.textContent = `${Math.round(currentZoom * 100)}%`;
   };
 
   document.getElementById("btn-zoom-in").addEventListener("click", () => updateZoom(currentZoom + 0.15));
   document.getElementById("btn-zoom-out").addEventListener("click", () => updateZoom(currentZoom - 0.15));
+  
   document.getElementById("btn-zoom-reset").addEventListener("click", () => updateZoom(1.0));
+
+  // Initial Responsive Zoom
+  if (window.innerWidth < 500) {
+    updateZoom(0.40);
+  } else if (window.innerWidth < 768) {
+    updateZoom(0.60);
+  } else if (window.innerWidth < 1200) {
+    updateZoom(0.80);
+  } else {
+    updateZoom(1.0);
+  }
+
 }
 
 // Tarih Maskeleme (GG/AA/YYYY)

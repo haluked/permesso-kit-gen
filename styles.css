@@ -1434,9 +1434,11 @@ body {
 
 /* Responsive Adaptations for Mobile & Tablet */
 @media (max-width: 1024px) {
-  body {
+  html, body {
     height: auto;
     overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
   
   .app-main {
@@ -1457,11 +1459,18 @@ body {
     border-bottom: 1px solid var(--border);
   }
 
-  .form-scroll-body,
-  .preview-viewport {
+  .form-scroll-body {
     overflow-y: visible;
     height: auto;
     flex: none;
+  }
+  .preview-viewport {
+    overflow-y: visible;
+    overflow-x: auto;
+    max-width: 100vw;
+    height: auto;
+    flex: none;
+    padding: 16px 0;
   }
 
   .form-scroll-body {
